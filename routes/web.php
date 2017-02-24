@@ -12,10 +12,22 @@
 */
 
 Route::get('/', function () {
-    return view('backend.app');
+    return view('welcome');
 });
 
-Route::get('/admin/dashboard', function () {
-    return view('backend.pages.dashboard');
+Route::group(['prefix'=>'admin','middleware'=>'admin'],function (){
+
+    Route::get('/', function () {
+        return view('backend.pages.dashboard');
+    });
+
+    Route::get('/dashboard', function () {
+        return view('backend.pages.dashboard');
+    });
+
 });
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
